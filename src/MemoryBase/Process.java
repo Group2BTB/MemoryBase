@@ -1,9 +1,5 @@
 package MemoryBase;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.nio.Buffer;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -46,6 +42,7 @@ public class Process {
 		art.setContent(getMiltiLineString());// set content to object Article by
 												// calling method
 												// getMiltiLineString();
+
 		System.out.print("Enter Author: ");
 		art.setAuthor(scan.next());
 
@@ -218,9 +215,7 @@ public class Process {
 		pagin.showPage(pro.arrList,pagin.page, pagin.perpage,"M",ui);
 		while(true){			
 			ui.menu();
-			//String part = scan.next();			
 			String part = scan.next().trim().toUpperCase();
-			part = part + scan.nextLine();
 			String[] strAct = val.checkNull(part);
 			part = strAct[0];
 			System.out.println(strAct[1]);
@@ -262,7 +257,6 @@ public class Process {
 					break;
 				case "E":
 					pro.UpdateArticle(pro.arrList, ui.enterData(scan));
-					pagin.showPage(pro.arrList,pagin.page, pagin.perpage,"M",ui);
 					break;
 				case "D":
 					pro.deleteArticle(pro.arrList, ui.enterData(scan));
@@ -316,11 +310,11 @@ public class Process {
 				return art1.getId().compareTo(art2.getId());
 			}
 		});
-		// check condition if number less 1 and over 3, it is not valid 
-		// (input again)
+		// check condition if number less 1 and over 3, it is not valid (input
+		// again)
 		do {
 			System.out
-					.print("What you want to update: [1.Title] [2.Author] [3.Content]     : ");
+					.print("What you want to update: 1.Title 2.Author 3.Content     : ");
 			idUpdate = scan.nextInt();
 
 			// Update title
@@ -335,11 +329,20 @@ public class Process {
 						System.out.print("Enter New Title : ");
 						String updateWord = scan.next();
 						list.get(index).setTitle(updateWord);
-						System.out.println("Update sucessfully (0_0) !");					
+						System.out.println("Update sucessfully (0_0) !");
+						System.out.println(list.get(index).getId()
+								+ list.get(index).getTitle()
+								+ list.get(index).getAuthor()
+								+ list.get(index).getContent() + "\n");
+
 						break END;
 					case "n":
 						System.out.println(list.get(index).getTitle()
 								+ " is not update...");
+						System.out.println(list.get(index).getId()
+								+ list.get(index).getTitle()
+								+ list.get(index).getAuthor()
+								+ list.get(index).getContent() + "\n");
 						break END;
 					default:
 						System.out
@@ -347,6 +350,7 @@ public class Process {
 						break;
 					}
 				}
+
 				// Update Author
 			} else if (idUpdate == 2) {
 				END: while (true) {
@@ -360,10 +364,19 @@ public class Process {
 						String updateWord = scan.next();
 						list.get(index).setAuthor(updateWord);
 						System.out.println("Update sucessfully (0_0) !");
+						System.out.println(list.get(index).getId()
+								+ list.get(index).getTitle()
+								+ list.get(index).getAuthor()
+								+ list.get(index).getContent() + "\n");
+
 						break END;
 					case "n":
 						System.out.println(list.get(index).getAuthor()
 								+ " is not update...");
+						System.out.println(list.get(index).getId()
+								+ list.get(index).getTitle()
+								+ list.get(index).getAuthor()
+								+ list.get(index).getContent() + "\n");
 						break END;
 					default:
 						System.out
@@ -385,11 +398,19 @@ public class Process {
 
 						list.get(index).setContent(getMiltiLineString());
 						System.out.println("Update sucessfully (0_0) !");
-						
+						System.out.println(list.get(index).getId()
+								+ list.get(index).getTitle()
+								+ list.get(index).getAuthor()
+								+ list.get(index).getContent() + "\n");
+
 						break END;
 					case "n":
 						System.out.println(list.get(index).getContent()
 								+ " is not update...");
+						System.out.println(list.get(index).getId()
+								+ list.get(index).getTitle()
+								+ list.get(index).getAuthor()
+								+ list.get(index).getContent() + "\n");
 						break END;
 					default:
 						System.out.println("\nInput is not valid!!!\n\nPlease Input again...");
@@ -399,6 +420,7 @@ public class Process {
 
 				System.out.println("\n-----Please check and input again!!----- \n");
 			}
+
 		} while (idUpdate < 1 || idUpdate > 3);
 	}
 	
