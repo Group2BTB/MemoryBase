@@ -256,7 +256,13 @@ public class Process {
 					pagin.showPage(pro.arrList,pagin.page, pagin.perpage,"M",ui);
 					break;
 				case "E":
-					pro.UpdateArticle(pro.arrList, ui.enterData(scan));
+					System.out.println("Input ID you want to Update: ");
+					String option  = scan.next();
+					if(isInteger(option) == true){
+						pro.UpdateArticle(pro.arrList, ui.enterData(scan));
+					}else{
+						System.out.println("ID is invalid!");
+					}
 					break;
 				case "D":
 					pro.deleteArticle(pro.arrList, ui.enterData(scan));
