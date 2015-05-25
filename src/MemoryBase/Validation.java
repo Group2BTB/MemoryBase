@@ -1,6 +1,12 @@
 package MemoryBase;
 
 public class Validation {
+	
+	/**
+	 * Check for invalid input from user
+	 * @param str	string to validate  
+	 * @return	return Error string if input is invalid
+	 */
 public String[] checkNull(String str){
 		
 		String[] value={"Error",""};
@@ -83,21 +89,5 @@ public String[] checkNull(String str){
 			}				
 		
 		return value;			
-	}
-	public String[] spliteStr(String str){			
-		str = str.replace("  ", " ");
-		String[] arrStr = str.split(" ");
-		return arrStr;
-	}
-	
-/*	public static void main(String[] args) {
-		Validation v = new Validation();		
-		Scanner scan  = new Scanner(System.in);
-		System.out.println("Enter: ");
-		String str = scan.nextLine().trim();		
-		String[] a =  v.checkNull(str);
-		for(int i=0;i<a.length;i++){
-			System.out.println(a[i]);
-		}
-	}*/
+	}	
 }
