@@ -43,7 +43,7 @@ public class Pagination {
 				// Last page
 				case "L":
 					page=total_page;
-					break;
+					break; 
 				// Previous page
 				case "P":
 					if(page!=1){
