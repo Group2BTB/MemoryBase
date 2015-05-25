@@ -7,7 +7,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.Iterator;
-//import java.util.List;
 import java.util.Scanner;
 
 /*
@@ -23,6 +22,7 @@ public class Process {
 	 * @param indexSeach is use to store all index that get from searchArticle
 	 * Method method addArticle() use to add Article object to arrList of
 	 * ArrayList<Article>
+	 * @code Variable actSearch for check action search  or not 
 	 */
 	private static int increment = 0;
 
@@ -259,11 +259,13 @@ public class Process {
 		Process pro = new Process();
 		Validation val = new Validation();
 		Pagination pagin = new Pagination();
+		// display head content
 		ui.head();
-		pagin.showPage(pro.arrList,1,"M",ui);
-		while(true){			
-			ui.menu();
-			//String part = scan.next();			
+		// display list article
+		pagin.showPage(pro.arrList,1,"HM",ui);
+		while(true){
+			// display menu
+			ui.menu();		
 			String part = scan.next().trim().toUpperCase();
 			part = part + scan.nextLine();
 			String[] strAct = val.checkNull(part);
@@ -272,43 +274,56 @@ public class Process {
 			if(actSearch==0){
 			
 				switch(part){
-					case "M":
-						pagin.showPage(this.arrList,1,"M",ui);
+					// main page
+					case "HM":
+						actSearch = 0;
+						pagin.showPage(this.arrList,1,"HM",ui);
 						break;
+					// Goto page
 					case "G":					
 						pagin.showPage(this.arrList,Integer.parseInt(strAct[1]),"G",ui);
 						break;
+					// Last page
 					case "L":
 						pagin.showPage(this.arrList,1,"L",ui);
-						break;				
+						break;	
+					// Previous page
 					case "P":
 						pagin.showPage(this.arrList,1,"P",ui);
 						break;
+					// Next page
 					case "N":
 						pagin.showPage(this.arrList,1,"N",ui);
 						break;
+					// Fisrt page
 					case "F":
 						pagin.showPage(this.arrList,1,"F",ui);
 						break;
+					// Set Row
 					case "R":
 						pagin.showPage(this.arrList, Integer.parseInt(strAct[1]),"R",ui);
 						break;
+					// Exit
 					case "X":					
 						ui.thanks();
 						System.exit(1);
 						break;
+					// Help
 					case "H":					
 						ui.help();
 						break;
+					// Search
 					case "S":
 						actSearch = 1;
 						indexSearch=pro.searchArticle(this.arrList);
 						pagin.showPage(this.arrList,indexSearch, 1,"M",ui);
 						break;
+					// Add Article
 					case "A":
 						pro.addArticle();
 						pagin.showPage(this.arrList,1,"M",ui);
 						break;
+					// Edit article
 					case "E":
 						System.out.print("Please Input ID: ");
 						String option = scan.next();
@@ -318,14 +333,18 @@ public class Process {
 							System.out.println("ID is not valid!!!");							
 						}
 						break;
+					// Delete Article
 					case "D":
 						pro.deleteArticle(this.arrList, ui.enterData(scan));
 						break;
+					// Delete all 
 					case "DL":			
 						break;
+					// Read by Article
 					case "RD":
 						ReadArticle(arrList);
 						break;
+					// Error Syntax
 					case "Error":					
 						System.out.println("Syntax Error!");
 						break;
@@ -334,8 +353,9 @@ public class Process {
 				}
 			}else{
 				switch(part){
-					case "M":
-						pagin.showPage(this.arrList,this.indexSearch, 1,"M",ui);
+					case "HM":
+						actSearch = 0;
+						pagin.showPage(this.arrList,1,"HM",ui);
 						break;
 					case "G":
 						pagin.showPage(this.arrList,this.indexSearch, Integer.parseInt(strAct[1]),"G",ui);
@@ -397,18 +417,6 @@ public class Process {
 			}
 		}
 	}
-
-	/*
-	 * //method for input multi line string for contents
-	 * 
-	 * static String getMiltiLineString(){ Scanner inputs=new
-	 * Scanner(System.in); StringBuffer sb=new StringBuffer();
-	 * System.out.print(" (Press Enter + '.' + Enter to Finish) "+" => "); while
-	 * (true) { String imsi=inputs.nextLine(); if(imsi!=null &&
-	 * imsi.trim().length()==1 && imsi.trim().charAt(0)=='.') break;
-	 * if(imsi==null) imsi=""; sb.append(imsi+"\n"); } return sb.toString(); }
-	 */
-
 	/**
 	 * This method is used for Update Data int updateWord is used for update
 	 * words int idUpdate use for update Title, Author, content by input number

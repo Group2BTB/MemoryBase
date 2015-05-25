@@ -6,7 +6,7 @@ public String[] checkNull(String str){
 		String[] value={"Error",""};
 		String subStr;
 		String subStr2;
-		String[] keys = {"F","P","N","L","S","A","E","D","DL","H","X"};
+		String[] keys = {"F","P","N","L","S","A","E","D","DL","H","X","HM"};
 		
 		if(str == null)
 			return value;
@@ -22,6 +22,7 @@ public String[] checkNull(String str){
 			}
 		
 		if(str.trim().length()>1){
+			
 			if(str.substring(0,2).trim().length()>1){
 				if(str.substring(0, 2).equalsIgnoreCase("RD")){
 			
@@ -39,24 +40,29 @@ public String[] checkNull(String str){
 						return value;
 					}				
 				}
-			}			
+			}
+						
+			if(subStr.equalsIgnoreCase("G")|| subStr.equalsIgnoreCase("R")){
+				
+				
+				if(subStr2.matches(".*(\\D).*"))
+					return value;
+				else{				
+					value[0] = subStr;
+					value[1] = subStr2;
+					return value;
+				}
+			}
+		}	
+			
+				
+				
+		if(str.trim().length()>1){
+			
+			subStr = str.substring(0, 2);
+			subStr2 =	str.substring(2).trim();
 		}
 		
-		 if(subStr.equalsIgnoreCase("G")|| subStr.equalsIgnoreCase("R")){
-			
-			if(subStr2.equalsIgnoreCase(""))
-				return value;
-			else if(subStr2.matches(".*(\\D).*"))
-				return value;
-			else{				
-				value[0] = subStr;
-				value[1] = subStr2;
-				return value;
-			}
-		}
-				
-		else{			
-			
 			byte t=0;
 			
 			for(int i=0; i<keys.length; i++){
@@ -75,7 +81,7 @@ public String[] checkNull(String str){
 					return value; 
 				}				
 			}				
-		}
+		
 		return value;			
 	}
 	public String[] spliteStr(String str){			

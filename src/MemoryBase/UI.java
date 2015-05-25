@@ -138,7 +138,7 @@ public class UI {
 		System.out.println("|                                                                             |");
 		System.out.println("|                         *Team 2 Of Battambong                               |");
 		System.out.println("|                            -> Chann Vichet (GL)                             |");
-		System.out.println("|                            -> Chan Sophath                                   |");
+		System.out.println("|                            -> Chan Sophath                                  |");
 		System.out.println("|                            -> Nao Narith                                    |");
 		System.out.println("|                            -> Prem Chanthorn                                |");
 		System.out.println("|                            -> Sry Leangheng                                 |");
@@ -148,6 +148,7 @@ public class UI {
 	}
 	public void menu(){
 		System.out.println("+=================================>} MENU {<==================================+");
+		System.out.println("|                               HM)Home X)Exit                                |");
 		System.out.println("|     F)First | P)Previous | N)Next | L)Last | G)Goto | R)Set Row  X)Exit     |");
 		System.out.println("|   S)Search| RD)Read | A)Add | E)Edit | D)Delete | DL)Delete-All | H)Help    |");
 		System.out.println("|_____________________________________________________________________________|");
@@ -172,6 +173,7 @@ public class UI {
 		System.out.println("| 12. DL)Delete-All : Delete All Article. (*Choose: DL)                       |");
 		System.out.println("| 13. H)Help : Guiline application. (*Choose: H)                              |");
 		System.out.println("| 14. X)Exit : Exit application. (*Choose: X)                                 |");
+		System.out.println("| 15. HM)Home : Home page. (*Choose: HM)                                      |");
 		System.out.println("|_____________________________________________________________________________|");
 	}
 	
