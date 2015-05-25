@@ -177,7 +177,7 @@ public class UI {
 	
 	public Integer enterData(Scanner scan){
 		try{
-			System.out.println("Enter ID: ");
+			System.out.print("Enter ID: ");
 			int id = scan.nextInt();
 			return id;
 		}catch(Exception ex){

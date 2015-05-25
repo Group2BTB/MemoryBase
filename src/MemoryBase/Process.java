@@ -115,22 +115,27 @@ public class Process {
 				return art1.getId().compareTo(art2.getId());
 			}
 		});
-		Scanner scan = new Scanner(System.in);
-		System.out.println(arrList.get(index).getId() + " "
-				+ arrList.get(index).getTitle() + " "
-				+ arrList.get(index).getContent() + " "
-				+ arrList.get(index).getAuthor() + " "
-				+ arrList.get(index).getDate());
-		System.out.print("Are you sure to delete this Article? (y/n): ");
-		String option = scan.nextLine();
-		if (option.matches("y")) {
-			if (arrList.get(index).getId() == id) {
-				arrList.remove(id - 1);
-				System.out.println("Delete successfully!");
+		try{
+			Scanner scan = new Scanner(System.in);
+			System.out.println(arrList.get(index).getId() + " "
+					+ arrList.get(index).getTitle() + " "
+					+ arrList.get(index).getContent() + " "
+					+ arrList.get(index).getAuthor() + " "
+					+ arrList.get(index).getDate());
+			System.out.print("Are you sure to delete this Article? (y/n): ");
+			String option = scan.nextLine();
+			if (option.matches("y")) {
+				if (arrList.get(index).getId() == id) {
+					arrList.remove(id - 1);
+					System.out.println("Delete successfully!");
+				}
+			} else if (option.matches("n")) {
+				System.out.println("Delete was canceled!");
 			}
-		} else if (option.matches("n")) {
-			System.out.println("Delete was canceled!");
+		}catch(ArrayIndexOutOfBoundsException e){
+			
 		}
+	
 	}
 
 	/*
@@ -305,7 +310,7 @@ public class Process {
 						pagin.showPage(this.arrList,1,"M",ui);
 						break;
 					case "E":
-						System.out.println("Please Input ID: ");
+						System.out.print("Please Input ID: ");
 						String option = scan.next();
 						if(isInteger(option)==true){
 							pro.UpdateArticle(this.arrList, Integer.parseInt(option));
@@ -366,7 +371,7 @@ public class Process {
 						pagin.showPage(this.arrList,1,"M",ui);
 						break;
 					case "E":
-						System.out.println("Please Input ID: ");
+						System.out.print("Please Input ID: ");
 						String option = scan.next();
 						if(isInteger(option)==true){
 							pro.UpdateArticle(this.arrList, Integer.parseInt(option));
@@ -430,16 +435,16 @@ public class Process {
 		// check condition if number less 1 and over 3, it is not valid (input again)
 		try {
 			if(arrList.get(index).getId() == id){
-				do {
-					System.out.print("What you want to update: [1.Title] [2.Author] [3.Content]     : ");
-					idUpdate = scan.next();
-					if(isInteger(idUpdate) == true){
+				System.out.print("What you want to update: [1.Title] [2.Author] [3.Content]     : ");
+				idUpdate = scan.next();
+				if(isInteger(idUpdate) == true){
+					do {
 						int choice = Integer.parseInt(idUpdate);
 						if (choice == 1) {
 							END: while (true) {
 								System.out.print("Are you sure You want to update " + "<<"
 										+ list.get(index).getTitle() + ">>" + "???"
-										+ "(Y/N)\t: ");
+										+ "(Y/N) : ");
 								String option = scan.next();
 								switch (option.toLowerCase()) {
 								case "y":
@@ -463,7 +468,7 @@ public class Process {
 							END: while (true) {
 								System.out.print("Are you sure You want to update " + "<<"
 										+ list.get(index).getTitle() + ">>" + "???"
-										+ "(Y/N)\t: ");
+										+ "(Y/N) : ");
 								String option = scan.next();
 								switch (option.toLowerCase()) {
 								case "y":
@@ -487,7 +492,7 @@ public class Process {
 							END: while (true) {
 								System.out.print("Are you sure You want to update " + "<<"
 										+ list.get(index).getTitle() + ">>" + "???"
-										+ "(Y/N)\t: ");
+										+ "(Y/N) : ");
 
 								String option = scan.next();
 								// clear one line coz nextline is Enter one line automatic
@@ -510,10 +515,11 @@ public class Process {
 
 							System.out.println("\n-----Please check and input again!!----- \n");
 						}
-					}
-					// Update title
 					
-				} while (Integer.parseInt(idUpdate) < 1 || Integer.parseInt(idUpdate) > 3);
+					} while (Integer.parseInt(idUpdate) < 1 || Integer.parseInt(idUpdate) > 3);
+				}else{
+					System.out.println("Id is invalid!");
+				}
 			}
 			
 		} catch (ArrayIndexOutOfBoundsException e) {
