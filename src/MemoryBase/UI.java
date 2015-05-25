@@ -79,8 +79,6 @@ public class UI {
 		System.out.print("+");
 		System.out.println();
 		
-		
-		
 	}
 	
 	public void table_body(String str,int length){
@@ -123,7 +121,7 @@ public class UI {
 
 	}
 	
-	public void tbl_footer(int cur_page, int count_page, int record, int length){				
+	public void tbl_footer(int cur_page, int count_page, int record, int length){
 		int space = length - ("| pages: " + cur_page + "/" + count_page + "Total records: "+record+" ").length();
 		System.out.print("| pages: " + cur_page + "/" + count_page); 
 		for(int i=0;i<space-1;i++){
@@ -140,7 +138,7 @@ public class UI {
 		System.out.println("|                                                                             |");
 		System.out.println("|                         *Team 2 Of Battambong                               |");
 		System.out.println("|                            -> Chann Vichet (GL)                             |");
-		System.out.println("|                            -> Chan Sophat                                   |");
+		System.out.println("|                            -> Chan Sophath                                   |");
 		System.out.println("|                            -> Nao Narith                                    |");
 		System.out.println("|                            -> Prem Chanthorn                                |");
 		System.out.println("|                            -> Sry Leangheng                                 |");
