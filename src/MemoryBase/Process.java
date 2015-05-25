@@ -192,26 +192,30 @@ public class Process {
 	}
 
 
-	public void ReadArticle(ArrayList<Article> arrayList) {
-		Scanner scan = new Scanner(System.in);
-		System.out.print("Input id you want read: ");
-		String option = scan.next();
-		if(isInteger(option) == true){
-			int index = Collections.binarySearch(this.arrList, new Article(Integer.parseInt(option), null, null,null, null), new Comparator<Article>() {
+	public void ReadArticle(ArrayList<Article> arrayList, int id) {
+		
+		int index = Collections.binarySearch(this.arrList, new Article(id , null, null,null, null), new Comparator<Article>() {
 
-				@Override
-				public int compare(Article arg0, Article arg1) {
-					// TODO Auto-generated method stub
-					return 0;
-				}
-			});
+			@Override
+			public int compare(Article art1, Article art2) {
+				// TODO Auto-generated method stub
+				return art1.getId().compareTo(art2.getId());
+			}
+		});
+		try{
+			if(arrayList.get(index).getId() == id){
+				System.out.println("ID     : "+arrayList.get(index).getId());
+				System.out.println("Title  : "+arrayList.get(index).getTitle());
+				System.out.println("Content: "+arrayList.get(index).getContent());
+				System.out.println("Author : "+arrayList.get(index).getAuthor());
+				System.out.println("Date   : "+arrayList.get(index).getDate());
+			}
 			
-			System.out.println("ID     : "+arrayList.get(index).getId());
-			System.out.println("Title  : "+arrayList.get(index).getTitle());
-			System.out.println("Content: "+arrayList.get(index).getContent());
-			System.out.println("Author : "+arrayList.get(index).getAuthor());
-			System.out.println("Date   : "+arrayList.get(index).getDate());
+		}catch (ArrayIndexOutOfBoundsException e){
+			System.out.println("Id you input is invalid!");
 		}
+		
+		
 		
 	}
 
@@ -342,7 +346,7 @@ public class Process {
 						break;
 					// Read by Article
 					case "RD":
-						ReadArticle(arrList);
+						ReadArticle(arrList,Integer.parseInt(strAct[1]) );
 						break;
 					// Error Syntax
 					case "Error":					
@@ -406,7 +410,7 @@ public class Process {
 					case "DL":			
 						break;
 					case "RD":
-						ReadArticle(arrList);
+						ReadArticle(arrList, Integer.parseInt(strAct[1]));
 						break;
 					case "Error":					
 						System.out.println("Syntax Error!");
