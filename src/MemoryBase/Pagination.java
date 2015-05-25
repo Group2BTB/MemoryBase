@@ -1,5 +1,6 @@
 package MemoryBase;
 import java.util.ArrayList;
+import java.util.Collections;
 
 
 public class Pagination {
@@ -7,8 +8,12 @@ public class Pagination {
 	public static int perpage=10;	
 	
 	public void showPage(ArrayList<Article> arr, int page,int perpage,String act,UI ui){
-		int cArr = arr.size();
 		
+		ArrayList<Article> reversList = new ArrayList<Article>(arr);
+		
+		Collections.reverse(reversList);
+		
+		int cArr = reversList.size();
 		if(cArr>0){
 			int total_page = (int) Math.ceil((cArr/(float)perpage));
 			
@@ -64,7 +69,7 @@ public class Pagination {
 			}	
 			ui.table_head();	
 			for(int i=start;i<stop;i++){
-				String[] str ={""+arr.get(i).getId(),arr.get(i).getTitle(),arr.get(i).getAuthor(),"02/12/2015"};
+				String[] str ={""+arr.get(i).getId(),arr.get(i).getTitle(),arr.get(i).getAuthor(),arr.get(i).getDate()};
 				ui.tbl_row(str);			
 			}
 			ui.tbl_footer(page, total_page, cArr,ui.width);
