@@ -311,7 +311,7 @@ public class Process {
 					case "DL":			
 						break;
 					case "RD":
-						System.out.println("ff");
+						ReadArticle(arrList);
 						break;
 					case "Error":					
 						System.out.println("Syntax Error!");
@@ -367,7 +367,7 @@ public class Process {
 					case "DL":			
 						break;
 					case "RD":
-						System.out.println("ff");
+						ReadArticle(arrList);
 						break;
 					case "Error":					
 						System.out.println("Syntax Error!");
