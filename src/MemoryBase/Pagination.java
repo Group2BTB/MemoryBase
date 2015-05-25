@@ -1,5 +1,7 @@
 package MemoryBase;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Pagination {
 	/**
@@ -17,6 +19,10 @@ public class Pagination {
 	 * @param ui is object for to drawing ui
 	 */
 	public void showPage(ArrayList<Article> arr, int value,String act,UI ui){
+		
+		ArrayList<Article> reversList = new ArrayList<Article>(arr);// Copy element from arr to reversList to reverse order
+		
+		Collections.reverse(reversList);//reverse order	
 		// cArr count size of arrList arr 
 		int cArr = arr.size();	
 		// check arrList arr have store record or not
@@ -94,7 +100,7 @@ public class Pagination {
 			ui.table_head();
 			// display body table 
 			for(int i=start;i<stop;i++){
-				String[] str ={""+arr.get(i).getId(),arr.get(i).getTitle(),arr.get(i).getAuthor(),arr.get(i).getDate()};
+				String[] str ={""+reversList.get(i).getId(),reversList.get(i).getTitle(),reversList.get(i).getAuthor(),reversList.get(i).getDate()};
 				ui.tbl_row(str);			
 			}
 			// dislay footer table
@@ -112,6 +118,8 @@ public class Pagination {
 	 * @param ui is object for to drawing ui
 	 */
 	public void showPage(ArrayList<Article> arrList,ArrayList<Integer> arr, int value,String act,UI ui){
+		
+		
 		int cArr = arr.size();
 		if(cArr>0){
 			int total_page = (int) Math.ceil((cArr/(float)perpage));			
