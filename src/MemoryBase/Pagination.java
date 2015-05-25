@@ -5,7 +5,7 @@ import java.util.Collections;
 
 public class Pagination {
 	public static int page=1;
-	public static int perpage=10;	
+	public static int perpage=5;	
 	
 	public void showPage(ArrayList<Article> arr, int page,int perpage,String act,UI ui){
 		
@@ -69,7 +69,7 @@ public class Pagination {
 			}	
 			ui.table_head();	
 			for(int i=start;i<stop;i++){
-				String[] str ={""+arr.get(i).getId(),arr.get(i).getTitle(),arr.get(i).getAuthor(),arr.get(i).getDate()};
+				String[] str ={""+reversList.get(i).getId(),reversList.get(i).getTitle(),reversList.get(i).getAuthor(),reversList.get(i).getDate()};
 				ui.tbl_row(str);			
 			}
 			ui.tbl_footer(page, total_page, cArr,ui.width);
