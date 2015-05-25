@@ -37,7 +37,7 @@ public class Process {
 			atr.setTitle("Title "+i);
 			atr.setContent("content "+i);
 			atr.setAuthor("author "+i);
-			atr.setDate("2015/12/12");	
+			atr.setDate(autoSetDate());	
 			arrList.add(atr);
 		}
 	}
@@ -115,22 +115,28 @@ public class Process {
 				return art1.getId().compareTo(art2.getId());
 			}
 		});
-		Scanner scan = new Scanner(System.in);
-		System.out.println(arrList.get(index).getId() + " "
-				+ arrList.get(index).getTitle() + " "
-				+ arrList.get(index).getContent() + " "
-				+ arrList.get(index).getAuthor() + " "
-				+ arrList.get(index).getDate());
-		System.out.print("Are you sure to delete this Article? (y/n): ");
-		String option = scan.nextLine();
-		if (option.matches("y")) {
-			if (arrList.get(index).getId() == id) {
-				arrList.remove(id - 1);
-				System.out.println("Delete successfully!");
+		try{
+			Scanner scan = new Scanner(System.in);
+			System.out.println(arrList.get(index).getId() + " "
+					+ arrList.get(index).getTitle() + " "
+					+ arrList.get(index).getContent() + " "
+					+ arrList.get(index).getAuthor() + " "
+					+ arrList.get(index).getDate());
+			System.out.print("Are you sure to delete this Article? (y/n): ");
+			String option = scan.nextLine();
+			if (option.matches("y")) {
+				if (arrList.get(index).getId() == id) {
+					arrList.remove(id - 1);
+					System.out.println("Delete successfully!");
+				}
+			} else if (option.matches("n")) {
+				System.out.println("Delete was canceled!");
 			}
-		} else if (option.matches("n")) {
-			System.out.println("Delete was canceled!");
+			
+		}catch(ArrayIndexOutOfBoundsException e){
+			System.out.println("Id is invalid!");
 		}
+		
 	}
 
 	/*
@@ -187,17 +193,17 @@ public class Process {
 	}
 
 
-	public void ReadArticle(ArrayList<Article> arrayList) {
-		Scanner scan = new Scanner(System.in);
+	public void ReadArticle(ArrayList<Article> arrayList, int id) {
+	/*	Scanner scan = new Scanner(System.in);
 		System.out.print("Input id you want read: ");
-		String option = scan.next();
-		if(isInteger(option) == true){
-			int index = Collections.binarySearch(this.arrList, new Article(Integer.parseInt(option), null, null,null, null), new Comparator<Article>() {
+		String option = scan.next();*/
+		
+			int index = Collections.binarySearch(this.arrList, new Article(id, null, null,null, null), new Comparator<Article>() {
 
 				@Override
-				public int compare(Article arg0, Article arg1) {
+				public int compare(Article art1, Article art2) {
 					// TODO Auto-generated method stub
-					return 0;
+					return art1.getId().compareTo(art2.getId());
 				}
 			});
 			
@@ -206,7 +212,7 @@ public class Process {
 			System.out.println("Content: "+arrayList.get(index).getContent());
 			System.out.println("Author : "+arrayList.get(index).getAuthor());
 			System.out.println("Date   : "+arrayList.get(index).getDate());
-		}
+		
 		
 	}
 
@@ -251,11 +257,11 @@ public class Process {
 	public void showManu() {
 		Scanner scan = new Scanner(System.in);
 		UI ui = new UI();
-		Process pro = new Process();
+		//Process pro = new Process();
 		Validation val = new Validation();
 		Pagination pagin = new Pagination();
 		ui.head();
-		pagin.showPage(pro.arrList,1,"M",ui);
+		pagin.showPage(this.arrList,1,"M",ui);
 		while(true){			
 			ui.menu();
 			//String part = scan.next();			
@@ -297,29 +303,31 @@ public class Process {
 						break;
 					case "S":
 						actSearch = 1;
-						indexSearch=pro.searchArticle(this.arrList);
+						indexSearch=this.searchArticle(this.arrList);
 						pagin.showPage(this.arrList,indexSearch, 1,"M",ui);
 						break;
 					case "A":
-						pro.addArticle();
+						this.addArticle();
 						pagin.showPage(this.arrList,1,"M",ui);
 						break;
 					case "E":
-						System.out.println("Please Input ID: ");
-						String option = scan.next();
-						if(isInteger(option)==true){
-							pro.UpdateArticle(this.arrList, Integer.parseInt(option));
-						}else{
-							System.out.println("ID is not valid!!!");							
-						}
+						this.UpdateArticle(this.arrList, ui.enterData(scan));
+						pagin.showPage(this.arrList,1,"M",ui);
 						break;
 					case "D":
-						pro.deleteArticle(this.arrList, ui.enterData(scan));
+						System.out.print("Input Id you want to delete: ");
+						String option = scan.next();
+						if(isInteger(option) == true){
+							this.deleteArticle(this.arrList, Integer.parseInt(option) );
+						}else{
+							System.out.println("ID is not valid!");
+						}
+						
 						break;
 					case "DL":			
 						break;
 					case "RD":
-						ReadArticle(arrList);
+						ReadArticle(this.arrList, Integer.parseInt(strAct[1]));
 						break;
 					case "Error":					
 						System.out.println("Syntax Error!");
@@ -359,29 +367,29 @@ public class Process {
 						break;
 					case "S":
 						actSearch = 1;
-						pagin.showPage(this.arrList,pro.searchArticle(this.arrList), 1,"M",ui);
+						pagin.showPage(this.arrList,this.searchArticle(this.arrList), 1,"M",ui);
 						break;
 					case "A":
-						pro.addArticle();
+						this.addArticle();
 						pagin.showPage(this.arrList,1,"M",ui);
 						break;
 					case "E":
-						System.out.println("Please Input ID: ");
-						String option = scan.next();
-						if(isInteger(option)==true){
-							pro.UpdateArticle(this.arrList, Integer.parseInt(option));
-						}else{
-							System.out.println("ID is not valid!!!");							
-						}
-						
+						this.UpdateArticle(this.arrList, ui.enterData(scan));
+						pagin.showPage(this.arrList,1,"M",ui);
 						break;
 					case "D":
-						pro.deleteArticle(this.arrList, ui.enterData(scan));
+						System.out.print("Input Id you want to delete: ");
+						String option = scan.next();
+						if(isInteger(option) == true){
+							this.deleteArticle(this.arrList, Integer.parseInt(option) );
+						}else{
+							System.out.println("ID is not valid!");
+						}
 						break;
 					case "DL":			
 						break;
 					case "RD":
-						ReadArticle(arrList);
+						this.ReadArticle(this.arrList, Integer.parseInt(strAct[1]));
 						break;
 					case "Error":					
 						System.out.println("Syntax Error!");
@@ -411,12 +419,13 @@ public class Process {
 	 * Article id if match return true in block do while is used for check
 	 * validate (user can input only number 1,2 and 3)
 	 * 
-	 * @param list is used for create object
+	 * @param list
+	 *            is used for create object
 	 */ 
 
 	public void UpdateArticle(ArrayList<Article> list, int id) {
 		Scanner scan = new Scanner(System.in);
-		int idUpdate;
+		String idUpdate;
 		int index = Collections.binarySearch(list, new Article(id, null, null,
 				null, null), new Comparator<Article>() {
 
@@ -427,97 +436,92 @@ public class Process {
 				return art1.getId().compareTo(art2.getId());
 			}
 		});
-		// check condition if number less 1 and over 3, it is not valid (input again)
-		try {
-			if(arrList.get(index).getId() == id){
-				do {
-					System.out.print("What you want to update: [1.Title] [2.Author] [3.Content]     : ");
-					idUpdate = scan.nextInt();
-
-					// Update title
-					if (idUpdate == 1) {
-						END: while (true) {
-							System.out.print("Are you sure You want to update " + "<<"
-									+ list.get(index).getTitle() + ">>" + "???"
-									+ "(Y/N)\t: ");
-							String option = scan.next();
-							switch (option.toLowerCase()) {
-							case "y":
-								System.out.print("Enter New Title : ");
-								String updateWord = scan.next();
-								list.get(index).setTitle(updateWord);
-								System.out.println("Update sucessfully (0_0) !");					
-								break END;
-							case "n":
-								System.out.println(list.get(index).getTitle()
-										+ " is not update...");
-								break END;
-							default:
-								System.out
-										.println("\nInput is not valid!!!\n\nPlease Input again...");
-								break;
-							}
+		// check condition if number less 1 and over 3, it is not valid 
+		// (input again)
+		do {
+			System.out.print("What you want to update: [1.Title] [2.Author] [3.Content]     : ");
+			idUpdate = scan.next();
+			int option =  Integer.parseInt(idUpdate);
+			if(isInteger(idUpdate) == true){
+				if (option == 1) {
+					END: while (true) {
+						System.out.print("Are you sure You want to update " + "<<"
+								+ list.get(index).getTitle() + ">>" + "???"
+								+ "(Y/N)\t: ");
+						String opt = scan.next();
+						switch (opt.toLowerCase()) {
+						case "y":
+							System.out.print("Enter New Title : ");
+							String updateWord = scan.next();
+							list.get(index).setTitle(updateWord);
+							System.out.println("Update sucessfully (0_0) !");					
+							break END;
+						case "n":
+							System.out.println(list.get(index).getTitle()
+									+ " is not update...");
+							break END;
+						default:
+							System.out
+									.println("\nInput is not valid!!!\n\nPlease Input again...");
+							break;
 						}
-						// Update Author
-					} else if (idUpdate == 2) {
-						END: while (true) {
-							System.out.print("Are you sure You want to update " + "<<"
-									+ list.get(index).getTitle() + ">>" + "???"
-									+ "(Y/N)\t: ");
-							String option = scan.next();
-							switch (option.toLowerCase()) {
-							case "y":
-								System.out.print("Enter New Author : ");
-								String updateWord = scan.next();
-								list.get(index).setAuthor(updateWord);
-								System.out.println("Update sucessfully (0_0) !");
-								break END;
-							case "n":
-								System.out.println(list.get(index).getAuthor()
-										+ " is not update...");
-								break END;
-							default:
-								System.out
-										.println("\nInput is not valid!!!\n\nPlease Input again...");
-							}
-						}
-
-						// Update Contents
-					} else if (idUpdate == 3) {
-						END: while (true) {
-							System.out.print("Are you sure You want to update " + "<<"
-									+ list.get(index).getTitle() + ">>" + "???"
-									+ "(Y/N)\t: ");
-
-							String option = scan.next();
-							// clear one line coz nextline is Enter one line automatic
-							switch (option.toLowerCase()) {
-							case "y":
-
-								list.get(index).setContent(getMiltiLineString());
-								System.out.println("Update sucessfully (0_0) !");
-								
-								break END;
-							case "n":
-								System.out.println(list.get(index).getContent()
-										+ " is not update...");
-								break END;
-							default:
-								System.out.println("\nInput is not valid!!!\n\nPlease Input again...");
-							}
-						}
-					} else {
-
-						System.out.println("\n-----Please check and input again!!----- \n");
 					}
-				} while (idUpdate < 1 || idUpdate > 3);
+					// Update Author
+				} else if (option == 2) {
+					END: while (true) {
+						System.out.print("Are you sure You want to update " + "<<"
+								+ list.get(index).getTitle() + ">>" + "???"
+								+ "(Y/N)\t: ");
+						String opt = scan.next();
+						switch (opt.toLowerCase()) {
+						case "y":
+							System.out.print("Enter New Author : ");
+							String updateWord = scan.next();
+							list.get(index).setAuthor(updateWord);
+							System.out.println("Update sucessfully (0_0) !");
+							break END;
+						case "n":
+							System.out.println(list.get(index).getAuthor()
+									+ " is not update...");
+							break END;
+						default:
+							System.out
+									.println("\nInput is not valid!!!\n\nPlease Input again...");
+						}
+					}
+
+					// Update Contents
+				} else if (option == 3) {
+					END: while (true) {
+						System.out.print("Are you sure You want to update " + "<<"
+								+ list.get(index).getTitle() + ">>" + "???"
+								+ "(Y/N)\t: ");
+
+						String opt = scan.next();
+						// clear one line coz nextline is Enter one line automatic
+						switch (opt.toLowerCase()) {
+						case "y":
+
+							list.get(index).setContent(getMiltiLineString());
+							System.out.println("Update sucessfully (0_0) !");
+							
+							break END;
+						case "n":
+							System.out.println(list.get(index).getContent()
+									+ " is not update...");
+							break END;
+						default:
+							System.out.println("\nInput is not valid!!!\n\nPlease Input again...");
+						}
+					}
+				} else {
+
+					System.out.println("\n-----Please check and input again!!----- \n");
+				}
 			}
+			// Update title
 			
-		} catch (ArrayIndexOutOfBoundsException e) {
-			// TODO: handle exception
-			System.out.println("\n*** Input ID is not found!!!***\n");
-		}
-		
+		} while (Integer.parseInt(idUpdate) < 1 || Integer.parseInt(idUpdate) > 3);
 	}
 	
 }
