@@ -1,5 +1,6 @@
 package MemoryBase;
 
+import java.awt.List;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -35,10 +36,10 @@ public class Process {
 	public Process() {
 		for (int i = 0; i < 1000; i++) {
 			Article atr = new Article();
-			atr.setId(i);
-			atr.setTitle("Title " + i);
-			atr.setContent("content " + i);
-			atr.setAuthor("author " + i);
+			atr.setId(i+1);
+			atr.setTitle("Title " + i+1);
+			atr.setContent("content " + i+1);
+			atr.setAuthor("author " + i+1);
 			atr.setDate("2015/12/12");
 			arrList.add(atr);
 		}
@@ -110,6 +111,8 @@ public class Process {
 	}
 
 	public void deleteArticle(/**/ArrayList<Article> arrList, int id) {
+		UI ui = new UI();
+		try {			
 		int index = Collections.binarySearch(arrList, new Article(id, null,
 				null, null, null), new Comparator<Article>() {
 
@@ -119,33 +122,29 @@ public class Process {
 				return art1.getId().compareTo(art2.getId());
 			}
 		});
+	
+		
+		
+		
 		if (arrList.get(index).getId() == id) {
 			Scanner scan = new Scanner(System.in);
-			System.out.println(arrList.get(index).getId() + " "
-					+ arrList.get(index).getTitle() + " "
-					+ arrList.get(index).getContent() + " "
-					+ arrList.get(index).getAuthor() + " "
-					+ arrList.get(index).getDate());
-			System.out
-					.print("Are you sure to delete this Article? (y/n): ");
-			String option = scan.nextLine();
-			try {
-				
+			ui.table_head();
+			String[] str ={""+arrList.get(index).getId(),arrList.get(index).getTitle(),arrList.get(index).getAuthor(),arrList.get(index).getDate()};
+			ui.tbl_row(str);			
+			System.out.print("Are you sure to delete this Article? (y/n): ");
+			String option = scan.nextLine();							
 				if (option.matches("y")) {
-					if (arrList.get(index).getId() == id) {
-						arrList.remove(id - 1);
-						System.out.println("Delete successfully!");
-					}
+					arrList.remove(index);					
 				} else if (option.matches("n")) {
 					System.out.println("Delete was canceled!");
 				}
-
+		}
 			} catch (ArrayIndexOutOfBoundsException e) {
 				System.out.println("Invalid ID!");
 			}
-		}
+		
 	}
-
+	
 	/*
 	 * @param art of Object Article to store " itr.next()".
 	 * 
