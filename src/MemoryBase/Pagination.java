@@ -3,7 +3,7 @@ import java.util.ArrayList;
 
 public class Pagination {
 	public static int page=1;
-	public static int perpage=10;	
+	public static int perpage=5;	
 	
 	public void showPage(ArrayList<Article> arr, int value,String act,UI ui){
 		int cArr = arr.size();
