@@ -11,6 +11,8 @@ import java.util.Iterator;
 //import java.util.List;
 import java.util.Scanner;
 
+import javax.swing.text.html.Option;
+
 /*
  * Class Process use to store all methods 
  */
@@ -39,13 +41,13 @@ public class Process {
 		System.out.print("Enter Title:");
 		art.setTitle(scan.next());
 
+		System.out.print("Enter Author: ");
+		art.setAuthor(scan.next());
+		
 		System.out.print("Enter Content: ");
 		art.setContent(getMiltiLineString());// set content to object Article by
 												// calling method
 												// getMiltiLineString();
-
-		System.out.print("Enter Author: ");
-		art.setAuthor(scan.next());
 
 		art.setDate(autoSetDate());// set Date by calling method
 		autoSetDate();
@@ -80,10 +82,6 @@ public class Process {
 			}
 			
 		}while(choice <1 || choice >3);
-					
-			
-
-		
 		
 		/*
 		 * long s = System.currentTimeMillis(); for (int i = 0; i < 1000000;
@@ -362,7 +360,7 @@ public class Process {
 					if (idUpdate == 1) {
 						END: while (true) {
 							System.out.print("Are you sure You want to update " + "<<"
-									+ list.get(index).getTitle() + ">>" + "???"
+									+ list.get(index).getTitle() + ">>" + " ???"
 									+ "(Y/N)\t: ");
 							String option = scan.next();
 							switch (option.toLowerCase()) {
@@ -370,10 +368,7 @@ public class Process {
 								System.out.print("Enter New Title : ");
 								String updateWord = scan.next();
 								list.get(index).setTitle(updateWord);
-								System.out.println("\n+==============================>} Update Status {<============================+");
-								System.out.println("|                                                                             |");
-								System.out.println("|                               Data is updated!!!                            |");
-								System.out.println("|_____________________________________________________________________________|\n");
+								System.out.println("\nData is updated!!!\n");
 								
 								break END;
 							case "n":
@@ -391,7 +386,7 @@ public class Process {
 					} else if (idUpdate == 2) {
 						END: while (true) {
 							System.out.print("Are you sure You want to update " + "<<"
-									+ list.get(index).getTitle() + ">>" + "???"
+									+ list.get(index).getAuthor() + ">>" + " ???"
 									+ "(Y/N)\t: ");
 							String option = scan.next();
 							switch (option.toLowerCase()) {
@@ -399,10 +394,7 @@ public class Process {
 								System.out.print("Enter New Author : ");
 								String updateWord = scan.next();
 								list.get(index).setAuthor(updateWord);
-								System.out.println("\n+==============================>} Update Status {<============================+");
-								System.out.println("|                                                                             |");
-								System.out.println("|                               Data is updated!!!                            |");
-								System.out.println("|_____________________________________________________________________________|\n");
+								System.out.println("\nData is updated!!!\n");
 								break END;
 							case "n":
 								System.out.println(list.get(index).getAuthor()
@@ -417,7 +409,7 @@ public class Process {
 					} else if (idUpdate == 3) {
 						END: while (true) {
 							System.out.print("Are you sure You want to update " + "<<"
-									+ list.get(index).getTitle() + ">>" + "???"
+									+ list.get(index).getContent() + ">>" + " ???"
 									+ "(Y/N)\t: ");
 
 							String option = scan.next();
@@ -426,10 +418,7 @@ public class Process {
 							case "y":
 
 								list.get(index).setContent(getMiltiLineString());
-								System.out.println("\n+==============================>} Update Status {<============================+");
-								System.out.println("|                                                                             |");
-								System.out.println("|                               Data is updated!!!                            |");
-								System.out.println("|_____________________________________________________________________________|\n");
+								System.out.println("\nData is updated!!!\n");
 								break END;
 							case "n":
 								System.out.println(list.get(index).getContent()
@@ -447,11 +436,7 @@ public class Process {
 				} while (idUpdate < 1 || idUpdate > 3);
 			}
 		}catch(ArrayIndexOutOfBoundsException e){
-			
-			System.out.println("\n+==============================>} Update Status {<============================+");
-			System.out.println("|                                                                             |");
-			System.out.println("|                               ID is not found!!!                            |");
-			System.out.println("|_____________________________________________________________________________|\n");
+			System.out.println("\n***Your input ID is not found!!!***\n");
 		}
 		
 	}
