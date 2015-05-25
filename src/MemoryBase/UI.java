@@ -1,6 +1,5 @@
 package MemoryBase;
 
-import java.io.BufferedReader;
 import java.util.Scanner;
 public class UI {
 	int width=79;
