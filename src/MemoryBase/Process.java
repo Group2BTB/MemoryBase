@@ -275,6 +275,7 @@ public class Process {
 					pagin.showPage(pro.arrList,pagin.page, pagin.perpage,"M",ui);
 					break;
 				case "E":
+					
 					System.out.println("Input ID you want to Update: ");
 					String option  = scan.next();
 					if(isInteger(option) == true){
@@ -332,6 +333,7 @@ public class Process {
 	public void UpdateArticle(ArrayList<Article> list, int id) {
 		Scanner scan = new Scanner(System.in);
 		int idUpdate;
+		
 		int index = Collections.binarySearch(list, new Article(id, null, null,
 				null, null), new Comparator<Article>() {
 
@@ -344,6 +346,7 @@ public class Process {
 		});
 		// check condition if number less 1 and over 3, it is not valid (input
 		// again)
+		
 		do {
 			System.out
 					.print("What you want to update: 1.Title 2.Author 3.Content     : ");
@@ -362,19 +365,11 @@ public class Process {
 						String updateWord = scan.next();
 						list.get(index).setTitle(updateWord);
 						System.out.println("Update sucessfully (0_0) !");
-						System.out.println(list.get(index).getId()
-								+ list.get(index).getTitle()
-								+ list.get(index).getAuthor()
-								+ list.get(index).getContent() + "\n");
-
+						
 						break END;
 					case "n":
 						System.out.println(list.get(index).getTitle()
 								+ " is not update...");
-						System.out.println(list.get(index).getId()
-								+ list.get(index).getTitle()
-								+ list.get(index).getAuthor()
-								+ list.get(index).getContent() + "\n");
 						break END;
 					default:
 						System.out
@@ -396,27 +391,17 @@ public class Process {
 						String updateWord = scan.next();
 						list.get(index).setAuthor(updateWord);
 						System.out.println("Update sucessfully (0_0) !");
-						System.out.println(list.get(index).getId()
-								+ list.get(index).getTitle()
-								+ list.get(index).getAuthor()
-								+ list.get(index).getContent() + "\n");
-
-						break END;
+												break END;
 					case "n":
 						System.out.println(list.get(index).getAuthor()
 								+ " is not update...");
-						System.out.println(list.get(index).getId()
-								+ list.get(index).getTitle()
-								+ list.get(index).getAuthor()
-								+ list.get(index).getContent() + "\n");
 						break END;
 					default:
 						System.out
 								.println("\nInput is not valid!!!\n\nPlease Input again...");
 					}
 				}
-
-				// Update Contents
+			// Update Contents
 			} else if (idUpdate == 3) {
 				END: while (true) {
 					System.out.print("Are you sure You want to update " + "<<"
@@ -430,19 +415,10 @@ public class Process {
 
 						list.get(index).setContent(getMiltiLineString());
 						System.out.println("Update sucessfully (0_0) !");
-						System.out.println(list.get(index).getId()
-								+ list.get(index).getTitle()
-								+ list.get(index).getAuthor()
-								+ list.get(index).getContent() + "\n");
-
 						break END;
 					case "n":
 						System.out.println(list.get(index).getContent()
 								+ " is not update...");
-						System.out.println(list.get(index).getId()
-								+ list.get(index).getTitle()
-								+ list.get(index).getAuthor()
-								+ list.get(index).getContent() + "\n");
 						break END;
 					default:
 						System.out.println("\nInput is not valid!!!\n\nPlease Input again...");
@@ -455,5 +431,4 @@ public class Process {
 
 		} while (idUpdate < 1 || idUpdate > 3);
 	}
-	
 }
