@@ -141,7 +141,7 @@ public class UI {
 		System.out.println("|                                                                             |");
 		System.out.println("|                         *Team 2 Of Battambong                               |");
 		System.out.println("|                            -> Chann Vichet (GL)                             |");
-		System.out.println("|                            -> Chan Sophat                                   |");
+		System.out.println("|                            -> Chan Sophath                                  |");
 		System.out.println("|                            -> Nao Narith                                    |");
 		System.out.println("|                            -> Prem Chanthorn                                |");
 		System.out.println("|                            -> Sry Leangheng                                 |");
