@@ -402,7 +402,7 @@ public class Process {
 	 * 
 	 * @param list
 	 *            is used for create object
-	 */
+	 */ 
 
 	public void UpdateArticle(ArrayList<Article> list, int id) {
 		Scanner scan = new Scanner(System.in);
