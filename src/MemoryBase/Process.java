@@ -102,22 +102,27 @@ public class Process {
 				return art1.getId().compareTo(art2.getId());
 			}
 		});
-		Scanner scan = new Scanner(System.in);
-		System.out.println(arrList.get(index).getId() + " "
-				+ arrList.get(index).getTitle() + " "
-				+ arrList.get(index).getContent() + " "
-				+ arrList.get(index).getAuthor() + " "
-				+ arrList.get(index).getDate());
-		System.out.print("Are you sure to delete this Article? (y/n): ");
-		String option = scan.nextLine();
-		if (option.matches("y")) {
-			if (arrList.get(index).getId() == id) {
-				arrList.remove(id - 1);
-				System.out.println("Delete successfully!");
+		try{
+			Scanner scan = new Scanner(System.in);
+			System.out.println(arrList.get(index).getId() + " "
+					+ arrList.get(index).getTitle() + " "
+					+ arrList.get(index).getContent() + " "
+					+ arrList.get(index).getAuthor() + " "
+					+ arrList.get(index).getDate());
+			System.out.print("Are you sure to delete this Article? (y/n): ");
+			String option = scan.nextLine();
+			if (option.matches("y")) {
+				if (arrList.get(index).getId() == id) {
+					arrList.remove(id - 1);
+					System.out.println("Delete successfully!");
+				}
+			} else if (option.matches("n")) {
+				System.out.println("Delete was canceled!");
 			}
-		} else if (option.matches("n")) {
-			System.out.println("Delete was canceled!");
+		}catch(ArrayIndexOutOfBoundsException e){
+			System.out.println("Your Article Id isn't contain in our Article");
 		}
+		
 	}
 
 	/*
@@ -259,13 +264,20 @@ public class Process {
 					System.out.println("Input ID you want to Update: ");
 					String option  = scan.next();
 					if(isInteger(option) == true){
-						pro.UpdateArticle(pro.arrList, ui.enterData(scan));
+						pro.UpdateArticle(pro.arrList, Integer.parseInt(option));
 					}else{
 						System.out.println("ID is invalid!");
 					}
 					break;
 				case "D":
-					pro.deleteArticle(pro.arrList, ui.enterData(scan));
+					System.out.print("Please input id to delete: ");
+					String keyWord = scan.next();
+					if(isInteger(keyWord) == true){
+						pro.deleteArticle(pro.arrList, Integer.parseInt(keyWord));
+					}else{
+						System.out.println("ID id invalid!");
+					}
+			
 					break;
 				case "DL":			
 					break;
