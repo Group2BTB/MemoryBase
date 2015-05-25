@@ -1,5 +1,6 @@
 package MemoryBase;
 
+import java.awt.Choice;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -48,13 +49,18 @@ public class Process {
 
 		art.setDate(autoSetDate());// set Date by calling method
 		autoSetDate();
-
-		System.out
-				.print("What do you want to save: 1.Save and Menu 2.Save and New 3.Cancel\t:");
-		String option = scan.next();
-
-		if (isInteger(option) == true) {
-			int choice = Integer.parseInt(option);
+		
+		String option;				
+		int choice = 0;
+		do{
+			System.out.print("What do you want to save: 1.[Save] 2.[Save-New] 3.[Cancel]\t:");
+			option = scan.next();
+			option = option + scan.nextLine();
+					
+			if (isInteger(option) == true){
+				choice = Integer.parseInt(option);
+			}
+										
 			if (choice == 1) {
 				arrList.add(art);// add object art of Article to ArrayList
 				System.out.println("Article saved...");
@@ -65,17 +71,20 @@ public class Process {
 				addArticle();// Call function addArticle again
 
 			} else if (choice == 3) {
-				System.out.println("Record cancel!");
+				System.out.println("Record cancelled!");
 				return;
+				
 			} else if (choice < 1 || choice > 3) {
 				System.out.println("Invalid keyword! Please try again! ");
-				addArticle();
+				
 			}
+			
+		}while(choice <1 || choice >3);
+					
+			
 
-		} else {
-			System.out.println("Invalid keyword!");
-		}
-
+		
+		
 		/*
 		 * long s = System.currentTimeMillis(); for (int i = 0; i < 1000000;
 		 * i++) {
@@ -90,6 +99,11 @@ public class Process {
 		 * 1000.0);
 		 */
 
+	}
+
+	private int parseInt(String option) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 	public void deleteArticle(/**/ArrayList<Article> arrList, int id) {
