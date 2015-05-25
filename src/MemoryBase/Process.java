@@ -198,11 +198,11 @@ public class Process {
 				}
 			});
 			
-			System.out.println("ID: "+arrayList.get(index).getId());
-			System.out.println("Title: "+arrayList.get(index).getTitle());
+			System.out.println("ID     : "+arrayList.get(index).getId());
+			System.out.println("Title  : "+arrayList.get(index).getTitle());
 			System.out.println("Content: "+arrayList.get(index).getContent());
-			System.out.println("Author: "+arrayList.get(index).getAuthor());
-			System.out.println("Date: "+arrayList.get(index).getDate());
+			System.out.println("Author : "+arrayList.get(index).getAuthor());
+			System.out.println("Date   : "+arrayList.get(index).getDate());
 		}
 		
 	}

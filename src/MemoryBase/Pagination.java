@@ -69,7 +69,7 @@ public class Pagination {
 				ui.tbl_row(str);			
 			}
 			ui.tbl_footer(page, total_page, cArr,ui.width);
-		}else{
+		}else{ 
 			System.out.println("No record!");
 		}
 	}
