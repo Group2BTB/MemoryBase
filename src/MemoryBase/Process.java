@@ -1,5 +1,9 @@
 package MemoryBase;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.Buffer;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -214,7 +218,9 @@ public class Process {
 		pagin.showPage(pro.arrList,pagin.page, pagin.perpage,"M",ui);
 		while(true){			
 			ui.menu();
-			String part = scan.nextLine().trim().toUpperCase();
+			//String part = scan.next();			
+			String part = scan.next().trim().toUpperCase();
+			part = part + scan.nextLine();
 			String[] strAct = val.checkNull(part);
 			part = strAct[0];
 			System.out.println(strAct[1]);
@@ -248,7 +254,7 @@ public class Process {
 					ui.help();
 					break;
 				case "S":
-					pro.searchArticle(arrList);
+					pro.searchArticle(pro.arrList);
 					break;
 				case "A":
 					pro.addArticle();

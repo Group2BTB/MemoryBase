@@ -1,5 +1,6 @@
 package MemoryBase;
 
+import java.io.BufferedReader;
 import java.util.Scanner;
 public class UI {
 	int width=79;
@@ -176,6 +177,7 @@ public class UI {
 		System.out.println("| 14. X)Exit : Exit application. (*Choose: X)                                 |");
 		System.out.println("|_____________________________________________________________________________|");
 	}
+	
 	public Integer enterData(Scanner scan){
 		try{
 			System.out.println("Enter ID: ");
@@ -186,4 +188,6 @@ public class UI {
 			return 0;
 		}
 	}
+	
+
 }

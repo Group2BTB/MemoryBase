@@ -21,26 +21,28 @@ public String[] checkNull(String str){
 			  subStr2 =	str.substring(1).trim();
 			}
 		
-		if(str.length()>1){
-			if(str.substring(0, 2).equalsIgnoreCase("RD")){
+		if(str.trim().length()>1){
+			if(str.substring(0,2).trim().length()>1){
+				if(str.substring(0, 2).equalsIgnoreCase("RD")){
 			
-				String subStr3 = str.substring(0, 2);
-				String subStr4 = str.substring(2).trim();
+					String subStr3 = str.substring(0, 2);
+					String subStr4 = str.substring(2).trim();
 			
-				if(subStr4.equalsIgnoreCase(""))
-					return value;
-				else if(subStr4.matches(".*(\\D).*"))
-					return value;
-				else{
+					if(subStr4.equalsIgnoreCase(""))
+						return value;
+					else if(subStr4.matches(".*(\\D).*"))
+						return value;
+					else{
 				
-					value[0] = subStr3;
-					value[1] = subStr4;
-					return value;
-				}				
-			}
+						value[0] = subStr3;
+						value[1] = subStr4;
+						return value;
+					}				
+				}
+			}			
 		}
 		
-		else if(subStr.equalsIgnoreCase("G")|| subStr.equalsIgnoreCase("R")){
+		 if(subStr.equalsIgnoreCase("G")|| subStr.equalsIgnoreCase("R")){
 			
 			if(subStr2.equalsIgnoreCase(""))
 				return value;
