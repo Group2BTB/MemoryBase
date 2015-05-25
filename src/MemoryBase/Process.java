@@ -280,6 +280,7 @@ public class Process {
 					String option  = scan.next();
 					if(isInteger(option) == true){
 						pro.UpdateArticle(pro.arrList, Integer.parseInt(option));
+						pagin.showPage(pro.arrList,pagin.page, pagin.perpage,"M",ui);
 					}else{
 						System.out.println("ID is invalid!");
 					}
@@ -349,7 +350,7 @@ public class Process {
 		
 		do {
 			System.out
-					.print("What you want to update: 1.Title 2.Author 3.Content     : ");
+					.print("What you want to update: 1.[Title] 2.[Author] 3.[Content]     : ");
 			idUpdate = scan.nextInt();
 
 			// Update title
