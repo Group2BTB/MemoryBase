@@ -1,6 +1,5 @@
 package MemoryBase;
 
-import java.awt.Choice;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -176,12 +175,28 @@ public class Process {
 
 	}
 
-	public void display() {
-		for (Article art : arrList) {
-			System.out.println(art.getId() + " " + art.getTitle() + " "
-					+ art.getContent() + "" + art.getAuthor() + " "
-					+ art.getDate());
+
+	public void ReadArticle(ArrayList<Article> arrayList) {
+		Scanner scan = new Scanner(System.in);
+		System.out.print("Input id you want read: ");
+		String option = scan.next();
+		if(isInteger(option) == true){
+			int index = Collections.binarySearch(this.arrList, new Article(Integer.parseInt(option), null, null,null, null), new Comparator<Article>() {
+
+				@Override
+				public int compare(Article arg0, Article arg1) {
+					// TODO Auto-generated method stub
+					return 0;
+				}
+			});
+			
+			System.out.println("ID: "+arrayList.get(index).getId());
+			System.out.println("Title: "+arrayList.get(index).getTitle());
+			System.out.println("Content: "+arrayList.get(index).getContent());
+			System.out.println("Author: "+arrayList.get(index).getAuthor());
+			System.out.println("Date: "+arrayList.get(index).getDate());
 		}
+		
 	}
 
 	/*
@@ -256,6 +271,7 @@ public class Process {
 					pagin.showPage(pro.arrList,pagin.page, pagin.perpage,"F",ui);
 					break;
 				case "R":
+					ReadArticle(this.arrList);
 					pagin.showPage(pro.arrList,1, Integer.parseInt(strAct[1]),"R",ui);
 					break;
 				case "X":					
@@ -266,10 +282,10 @@ public class Process {
 					ui.help();
 					break;
 				case "S":
-					pro.searchArticle(pro.arrList);
+					searchArticle(pro.arrList);
 					break;
 				case "A":
-					pro.addArticle();
+					addArticle();
 					pagin.showPage(pro.arrList,pagin.page, pagin.perpage,"M",ui);
 					break;
 				case "E":
