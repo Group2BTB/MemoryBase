@@ -1,14 +1,29 @@
 package MemoryBase;
 
+import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
+
+
 public class Validation {
 	
 	/**
 	 * Check for invalid input from user
 	 * @param str	string to validate  
 	 * @return	return Error string if input is invalid
+	 * @throws MalformedURLException 
+	 * @throws URISyntaxException 
 	 */
-public String[] checkNull(String str){
+public String[] checkNull(String str) throws MalformedURLException, URISyntaxException{
 		
+//https://www.abc.com:80/abc/a.php?x=1
+		
+		
+		
+//		File file = new File(url);
+	
 		String[] value={"Error",""};
 		String subStr;
 		String subStr2;
