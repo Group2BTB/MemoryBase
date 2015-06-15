@@ -33,15 +33,19 @@ public class Process {
 	public static int actSearch = 0;
 
 	public Process() {
-		for (int i = 0; i < 1000; i++) {
+		System.out.println("Adding content ...");
+		long s = System.currentTimeMillis();
+		for (int i = 0; i < 1000000; i++) {
 			Article atr = new Article();
-			atr.setId(i+1);
+			atr.setId(increment++);
 			atr.setTitle("Title " + i+1);
 			atr.setContent("content " + i+1);
 			atr.setAuthor("author " + i+1);
 			atr.setDate(autoSetDate());
 			arrList.add(atr);
 		}
+		long st = System.currentTimeMillis(); 
+		System.out.println((st - s) / 1000.00);
 	}
 
 	public void addArticle() {
@@ -59,25 +63,23 @@ public class Process {
 		System.out.print("Enter Author: ");
 		art.setAuthor(scan.next());
 
-		art.setDate(autoSetDate());// set Date by calling method
-		autoSetDate();
+		art.setDate(autoSetDate());// set Date by calling method autoSetDate();
 
 		String option;
 		int choice = 0;
 		do {
-			System.out
-					.print("What do you want to save: 1.[Save] 2.[Save-New] 3.[Cancel]\t:");
+			System.out.print("What do you want to save: 1.[Save] 2.[Save-New] 3.[Cancel]\t:");
 			option = scan.next();
 			option = option + scan.nextLine();
 
 			if (isInteger(option) == true) {
-				choice = Integer.parseInt(option);
+				choice = Integer.parseInt(option);// Convert from String to int type
 			}
 
 			if (choice == 1) {
 				arrList.add(art);// add object art of Article to ArrayList
 				System.out.println("Article saved...");
-
+				
 			} else if (choice == 2) {
 				arrList.add(art);// add object art of Article to ArrayList
 				System.out.println("Article saved...");
@@ -85,7 +87,7 @@ public class Process {
 
 			} else if (choice == 3) {
 				System.out.println("Record cancelled!");
-				return;
+				return;// Leave from the function 
 
 			} else if (choice < 1 || choice > 3) {
 				System.out.println("Invalid keyword! Please try again! ");
@@ -93,23 +95,12 @@ public class Process {
 			}
 
 		} while (choice < 1 || choice > 3);
-		/*
-		 * long s = System.currentTimeMillis(); for (int i = 0; i < 1000000;
-		 * i++) {
-		 * 
-		 * Article art = new Article(); art.setId(i); art.setTitle("Title" + i);
-		 * art.setContent("Content" + i); art.setAuthor("Author" + i);
-		 * art.setDate(autoSetDate());
-		 * 
-		 * arrList.add(art);
-		 * 
-		 * } long st = System.currentTimeMillis(); System.out.println((st - s) /
-		 * 1000.0);
-		 */
-
 	}
 
 	public void deleteArticle(/**/ArrayList<Article> arrList, int id) {
+		UI ui = new UI(); //Create new object UI
+		try {	
+			//use Collections.binarySearch() method to get the index of Article
 		int index = Collections.binarySearch(arrList, new Article(id, null,
 				null, null, null), new Comparator<Article>() {
 
@@ -119,32 +110,45 @@ public class Process {
 				return art1.getId().compareTo(art2.getId());
 			}
 		});
-		if (arrList.get(index).getId() == id) {
-			Scanner scan = new Scanner(System.in);
-			System.out.println(arrList.get(index).getId() + " "
-					+ arrList.get(index).getTitle() + " "
-					+ arrList.get(index).getContent() + " "
-					+ arrList.get(index).getAuthor() + " "
-					+ arrList.get(index).getDate());
-			System.out
-					.print("Are you sure to delete this Article? (y/n): ");
-			String option = scan.nextLine();
-			try {
+		Scanner scan = new Scanner(System.in);
+		ui.table_head();// call method table_head() for Class UI
+		String[] str ={""+arrList.get(index).getId(),arrList.get(index).getTitle(),arrList.get(index).getAuthor(),arrList.get(index).getDate()};
+		ui.tbl_row(str);// Set row to display			
+		String option; 
+			do{
+				System.out.print("Are you sure to delete this Article? (y/n): ");
+				option = scan.next();
 				if (option.matches("y")) {
-					if (arrList.get(index).getId() == id) {
-						arrList.remove(id - 1);
-						System.out.println("Delete successfully!");
-					}
+					System.out.println("Delete successfully!");
+					arrList.remove(index);//Call method remove() form ArrayList to remove article content by index.
 				} else if (option.matches("n")) {
 					System.out.println("Delete was canceled!");
+				}else{
+					System.out.println("Invalid keyword! Please try again!");
 				}
-
-			} catch (ArrayIndexOutOfBoundsException e) {
-				System.out.println("Invalid ID!");
-			}
+			}while(option == "y" || option == "n");
+			
+		} catch (ArrayIndexOutOfBoundsException e) {
+			System.out.println("Invalid ID!");
 		}
+		
 	}
-
+	
+	public void deleteAll(ArrayList<Article> arrList){
+		Scanner scan = new Scanner(System.in);
+		System.out.print("Are you sure to delete this Article? (y/n): ");
+		String option = scan.next();
+		if (option.matches("y")) {
+			arrList.clear();// call method clear() of ArrayList
+			System.out.println("All of the article content was clear!");
+		} else if (option.matches("n")) {
+			System.out.println("Delete was canceled!");
+		}else{
+			System.out.println("Invalid keyword! Please try again!");
+		}
+		
+	}
+	
 	/*
 	 * @param art of Object Article to store " itr.next()".
 	 * 
@@ -156,13 +160,13 @@ public class Process {
 	public ArrayList<Integer> searchArticle(ArrayList<Article> arrList) {
 
 		System.out.println("Input keyword you want to search: ");
-		Iterator<Article> itr = arrList.iterator();
+		Iterator<Article> itr = arrList.iterator();// Create object iterator from ArrayList "arrList"
 		Scanner scan = new Scanner(System.in);
 		String str = scan.next();
 
 		ArrayList<Integer> arr = new ArrayList<Integer>();
 		int index = 0;
-		Article art;
+		Article art;// Declare variable art as Article type to store object "itr.next()"
 		StringBuilder strBld = new StringBuilder();
 		String regx = ".*" + str.trim().toUpperCase() + ".*";
 		// long s = System.currentTimeMillis();
@@ -181,13 +185,13 @@ public class Process {
 
 			if (strBld.toString().toUpperCase().matches(regx)) {
 
-				arr.add(index);
+				arr.add(index);// add index of Search article to ArrayList "arr";
 			}
 			strBld = new StringBuilder();
-			index++;
+			index++;// increment
 		}
 
-		return arr;
+		return arr; // return object arr of ArrayList that store all index
 		// if (strBld.toString().toUpperCase().matches(regx) == false) {
 		// System.out.println("Sorry invalid keyword!");
 		// }
@@ -229,7 +233,7 @@ public class Process {
 	}
 
 	/*
-	 * IsInteger() is used to validate that the parameter option is Integer or
+	 *@method IsInteger() is used to validate that the parameter option is Integer or
 	 * not.
 	 */
 	public boolean isInteger(String option) {
@@ -244,12 +248,8 @@ public class Process {
 	}
 
 	public String autoSetDate() {
-		Date today = Calendar.getInstance().getTime();// Use to get time from
-														// system.
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");// Use to
-																	// change
-																	// date
-																	// format.
+		Date today = Calendar.getInstance().getTime();// Use to get time from system.
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");// Use to change date format.
 		return sdf.format(today);
 	}
 
@@ -274,13 +274,13 @@ public class Process {
 	public void showManu() {
 		Scanner scan = new Scanner(System.in);
 		UI ui = new UI();
-		Process pro = new Process();
+		//Process pro = new Process();
 		Validation val = new Validation();
 		Pagination pagin = new Pagination();
 		// display head content
 		ui.head();
 		// display list article
-		pagin.showPage(pro.arrList, 1, "HM", ui);
+		pagin.showPage(this.arrList, 1, "HM", ui);
 		while (true) {
 			// display menu
 			ui.menu();
@@ -335,12 +335,12 @@ public class Process {
 				// Search
 				case "S":
 					actSearch = 1;
-					indexSearch = pro.searchArticle(this.arrList);
+					indexSearch = this.searchArticle(this.arrList);
 					pagin.showPage(this.arrList, indexSearch, 1, "M", ui);
 					break;
 				// Add Article
 				case "A":
-					pro.addArticle();
+					this.addArticle();
 					pagin.showPage(this.arrList, 1, "M", ui);
 					break;
 				// Edit article
@@ -348,7 +348,7 @@ public class Process {
 					System.out.print("Please Input ID: ");
 					String option = scan.next();
 					if (isInteger(option) == true) {
-						pro.UpdateArticle(this.arrList,
+						this.UpdateArticle(this.arrList,
 								Integer.parseInt(option));
 					} else {
 						System.out.println("ID is not valid!!!");
@@ -359,7 +359,7 @@ public class Process {
 					System.out.print("Please Input ID: ");
 					String choice = scan.next();
 					if (isInteger(choice) == true) {
-						pro.deleteArticle(this.arrList, Integer.parseInt(choice));
+						this.deleteArticle(this.arrList, Integer.parseInt(choice));
 					} else {
 						System.out.println("ID is not valid!!!");
 					}
@@ -367,6 +367,7 @@ public class Process {
 					break;
 				// Delete all
 				case "DL":
+					this.deleteAll(this.arrList);
 					break;
 				// Read by Article
 				case "RD":
@@ -415,17 +416,17 @@ public class Process {
 				case "S":
 					actSearch = 1;
 					pagin.showPage(this.arrList,
-							pro.searchArticle(this.arrList), 1, "M", ui);
+					this.searchArticle(this.arrList), 1, "M", ui);
 					break;
 				case "A":
-					pro.addArticle();
+					this.addArticle();
 					pagin.showPage(this.arrList, 1, "M", ui);
 					break;
 				case "E":
 					System.out.print("Please Input ID: ");
 					String option = scan.next();
 					if (isInteger(option) == true) {
-						pro.UpdateArticle(this.arrList,
+						this.UpdateArticle(this.arrList,
 								Integer.parseInt(option));
 					} else {
 						System.out.println("ID is not valid!!!");
@@ -436,12 +437,13 @@ public class Process {
 					System.out.print("Please Input ID: ");
 					String choice = scan.next();
 					if (isInteger(choice) == true) {
-						pro.deleteArticle(this.arrList, Integer.parseInt(choice));
+						this.deleteArticle(this.arrList, Integer.parseInt(choice));
 					} else {
 						System.out.println("ID is not valid!!!");
 					}
 					break;
 				case "DL":
+					this.deleteAll(this.arrList);
 					break;
 				case "RD":
 					ReadArticle(arrList, Integer.parseInt(strAct[1]));

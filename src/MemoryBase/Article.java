@@ -1,5 +1,4 @@
 package MemoryBase;
-import java.util.Date;
 
 public class Article {
 	/*

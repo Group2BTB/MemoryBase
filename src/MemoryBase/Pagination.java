@@ -1,12 +1,11 @@
 package MemoryBase;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 
 public class Pagination {
 	/**
-	 * Variable page is curent page  
-	 * Variable perpage is number of rows
+	 * @param page is current page  
+	 * @param perpage is number of rows
 	 */
 	public static int page=1;
 	public static int perpage=5;	
@@ -21,10 +20,12 @@ public class Pagination {
 	public void showPage(ArrayList<Article> arr, int value,String act,UI ui){
 		
 		ArrayList<Article> reversList = new ArrayList<Article>(arr);// Copy element from arr to reversList to reverse order
+		//reverse order
+		Collections.reverse(reversList);
 		
-		Collections.reverse(reversList);//reverse order	
 		// cArr count size of arrList arr 
 		int cArr = arr.size();	
+		
 		// check arrList arr have store record or not
 		if(cArr>0){
 			// total_page count page of record
@@ -43,7 +44,7 @@ public class Pagination {
 				// Last page
 				case "L":
 					page=total_page;
-					break; 
+					break;
 				// Previous page
 				case "P":
 					if(page!=1){
@@ -118,7 +119,6 @@ public class Pagination {
 	 * @param ui is object for to drawing ui
 	 */
 	public void showPage(ArrayList<Article> arrList,ArrayList<Integer> arr, int value,String act,UI ui){
-		
 		
 		int cArr = arr.size();
 		if(cArr>0){
